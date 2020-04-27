@@ -21,6 +21,9 @@ max_x = 6
 max_y = 6
 plane_size = 2
 
+enable_gpu()
+# https://blender.stackexchange.com/questions/5291/how-to-switch-rendering-engine-via-python-script
+bpy.context.scene.render.engine = 'CYCLES'
 planes = init_basic_planes_scene(max_x, max_y, plane_size)
 
 # animate

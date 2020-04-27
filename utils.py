@@ -86,3 +86,27 @@ def add_rotation(obj, axis, angle, frame_begin, frame_end):
 
 def get_polar_coordinates(radius, angle):
     return radius * math.cos(angle), radius * math.sin(angle)
+
+def enable_gpu(device_type="CUDA"):
+    # https://blender.stackexchange.com/questions/156503/rendering-on-command-line-with-gpu
+    preferences = bpy.context.user_preferences
+    cycles_preferences = preferences.addons["cycles"].preferences
+    cuda_devices, opencl_devices = cycles_preferences.get_devices()
+    if device_type == "CUDA":
+        devices = cuda_devices
+    elif device_type == "OPENCL":
+        devices = opencl_devices
+    else:
+        raise RuntimeError("Unsupported device type")
+
+    activated_gpus = []
+    for device in devices:
+        if device.type == "CPU":
+            device.use = False
+        else:
+            device.use = True
+            activated_gpus.append(device.name)
+
+    cycles_preferences.compute_device_type = device_type
+    bpy.context.scene.cycles.device = "GPU"
+    return activated_gpus

@@ -55,6 +55,7 @@ W.light_settings.environment_energy = 0.1
 
 # create camera
 bpy.ops.object.camera_add(location=(0, -5, 0), rotation=(math.radians(90), 0, 0))
+bpy.context.scene.camera = bpy.context.object
 for obj in get_objects('Camera'):
     camera = obj
 

@@ -48,6 +48,7 @@ def init_basic_planes_scene(max_x, max_y, plane_size, cam_distance=None):
     # position the camera so (0, 0) is in the top left corner
     cam_rotation = (0, math.radians(180), math.radians(180))
     bpy.ops.object.camera_add(location=(cam_x, cam_y, cam_z), rotation=cam_rotation)
+    bpy.context.scene.camera = bpy.context.object
 
     # one light in the middle of each side of the rectangle, at the same distance
     distance_from_planes = 40
